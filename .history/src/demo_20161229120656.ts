@@ -1,0 +1,18 @@
+/**
+ * class Demo
+ */
+class Demo {
+
+	public name: String;
+	public version: Number;
+
+	constructor(name: String) {
+		this.name = name
+		this.version = 1;
+	}
+
+	out() {
+		return `This is ${this.name} in version ${this.version}`;
+	}
+
+}

@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "pretty": true,
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "experimentalDecorators": true,
+        "noImplicitAny": true,
+        "removeComments": false
+    },
+    "files": [
+        "./src/main.ts"
+    ],
+    "exclude": ["node_modules"]
+}

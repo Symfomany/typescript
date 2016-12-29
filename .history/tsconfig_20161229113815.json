@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "experimentalDecorators": true,
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "module": "commonjs"
+    },
+    "files": [
+        "./src/**/*"
+    ],
+    "exclude": ["node_modules"]
+}

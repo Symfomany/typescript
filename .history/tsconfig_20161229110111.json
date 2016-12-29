@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "pretty": true,
+        "outDir": "./dist",
+        "experimentalDecorators": true,
+        "noImplicitAny": true,
+        "removeComments": true
+    },
+    "files": [
+        "./src/main.ts",
+        "typings/index.d.ts"
+    ],
+    "exclude": ["node_modules"]
+}
