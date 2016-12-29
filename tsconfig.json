@@ -3,7 +3,9 @@
 		"target": "es5",
 		"pretty": true,
 		"outDir": "./build",
-		"experimentalDecorators": true
+		"experimentalDecorators": true,
+		"noImplicitAny": true,
+		"removeComments": true
 	},
 	"files": [
 		"index.ts",
