@@ -1,0 +1,13 @@
+{
+	"compilerOptions" : {
+		"target": "es5",
+		"pretty": true,
+		"outDir": "./build",
+		"experimentalDecorators": true
+	},
+	"files": [
+		"index.ts",
+		"typings/index.d.ts"
+	],
+	"exclude": ["node_modules"]
+}
