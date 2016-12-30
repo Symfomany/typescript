@@ -1,8 +1,6 @@
 /**
  * @author: Boyer Julien
- * Load all environements in webpack/ directory
- * --env.prod :prod
- * --env.dev  :dev
+ * Load all environements in webpack/ dir
  */
 
 // Look in ./webpack folder for webpack.dev.js
