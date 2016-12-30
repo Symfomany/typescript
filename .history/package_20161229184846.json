@@ -6,7 +6,7 @@
         "prebuild": "rimraf dist && npm cache clean",
         "build": "webpack --env.dev --display-error-details",
         "start": "http-server dist",
-        "dev": "webpack-dev-server ./src/main.ts --module-bind --hot --inline --colors",
+        "dev": "webpack-dev-server --inline --hot",
         "go": "npm run build && npm run start",
         "ts": "tsc src/main.ts --outDir out"
     },

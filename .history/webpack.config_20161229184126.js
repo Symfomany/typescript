@@ -21,7 +21,7 @@ const config = webpackValidator({
 
     output: {
         filename: 'bundle.[name].js',
-        path: resolve(__dirname, 'dist')
+        path: resolve('dist')
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css']

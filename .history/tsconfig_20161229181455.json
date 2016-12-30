@@ -4,10 +4,14 @@
         "outDir": "./dist/",
         "sourceMap": true,
         "noImplicitAny": true,
-        "module": "commonjs"
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "removeComments": false,
+        "allowSyntheticDefaultImports": true
     },
     "include": [
-        "./src/**/*"
+        "./src/**/*",
+        "node_modules/moment/moment.d.ts"
     ],
     "exclude": [
         "node_modules",

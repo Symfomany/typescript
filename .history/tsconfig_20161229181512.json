@@ -4,7 +4,10 @@
         "outDir": "./dist/",
         "sourceMap": true,
         "noImplicitAny": true,
-        "module": "commonjs"
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "removeComments": false,
+        "allowSyntheticDefaultImports": true
     },
     "include": [
         "./src/**/*"

@@ -21,6 +21,7 @@ const config = webpackValidator({
 
     output: {
         filename: 'bundle.[name].js',
+        publicPath: "/dist/",
         path: resolve(__dirname, 'dist')
     },
     resolve: {

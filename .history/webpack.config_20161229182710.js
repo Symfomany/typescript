@@ -21,7 +21,7 @@ const config = webpackValidator({
 
     output: {
         filename: 'bundle.[name].js',
-        path: resolve(__dirname, 'dist')
+        path: resolve('dist')
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css']
@@ -46,9 +46,7 @@ const config = webpackValidator({
             },
             {
                 test: /\.js(x)?$/,
-                loader: 'babel-loader?presets[]=es2015&presets[]=react',
-                exclude: [/node_modules/],
-
+                loader: 'babel-loader?presets[]=es2015&presets[]=react'
             },
             {
                 test: /\.ts$/,

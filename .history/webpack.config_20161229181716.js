@@ -6,14 +6,11 @@ const webpack = require('webpack'); //to access built-in plugins
 const webpackValidator = require('webpack-validator') // Validate a Webpack configuration from loader & plugins used
 const { CheckerPlugin } = require('awesome-typescript-loader')
 const ExtractTextPlugin = require('extract-text-webpack-plugin') // Extract text from bundle into a file.
-const CompressionPlugin = require("compression-webpack-plugin");
-
 
 /**
  * To validate your config WebPack
  */
 const config = webpackValidator({
-    performance: { hints: false },
     entry: {
         main: './src/main.ts',
         vendor: './src/vendor.ts'
@@ -21,7 +18,7 @@ const config = webpackValidator({
 
     output: {
         filename: 'bundle.[name].js',
-        path: resolve(__dirname, 'dist')
+        path: resolve('dist')
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css']
@@ -46,9 +43,7 @@ const config = webpackValidator({
             },
             {
                 test: /\.js(x)?$/,
-                loader: 'babel-loader?presets[]=es2015&presets[]=react',
-                exclude: [/node_modules/],
-
+                loader: 'babel-loader?presets[]=es2015&presets[]=react'
             },
             {
                 test: /\.ts$/,
@@ -64,17 +59,8 @@ const config = webpackValidator({
     plugins: [
         new ProgressBarPlugin(), // progress bar
         new CheckerPlugin(),
-        new CompressionPlugin(),
-        new ExtractTextPlugin('styles.[name].css'),
         // new webpack.optimize.UglifyJsPlugin(),
-        new HtmlWebpackPlugin({ template: './src/index.html' }),
-        new CopyWebpackPlugin([{
-            from: './src/img',
-            to: './img'
-        }]),
-        new webpack.optimize.CommonsChunkPlugin({
-            names: ['vendor'],
-        })
+        new HtmlWebpackPlugin({ template: './src/index.html' })
     ]
 
 });
