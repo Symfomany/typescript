@@ -7,7 +7,7 @@
         "build": "webpack --env=dev --display-error-details",
         "prod": "webpack --env=prod",
         "start": "http-server dist",
-        "dev": "webpack-dev-server --env=dev ./src/main.ts --inline  --hot",
+        "dev": "webpack-dev-server --env=dev ./src/main.ts  --hot --inline  --colors",
         "go": "npm run build && npm run start",
         "ts": "tsc src/main.ts --outDir out"
     },

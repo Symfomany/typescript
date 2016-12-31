@@ -39,7 +39,8 @@ module.exports = env => {
         performance: { hints: false },
         entry: {
             main: './src/main.ts',
-            vendor: './src/vendor.ts'
+            vendor: './src/vendor.ts',
+            materializecss: 'materialize-css/dist/css/materialize.min.css'
         },
 
         output: {
@@ -105,7 +106,6 @@ module.exports = env => {
                 from: './src/img',
                 to: './img'
             }]),
-            new webpack.HotModuleReplacementPlugin(),
 
             /**
              * Plugin LoaderOptionsPlugin (experimental)
@@ -152,26 +152,7 @@ module.exports = env => {
             module: false,
             clearImmediate: false,
             setImmediate: false
-        },
-
-        /**
-         * Webpack Development Server configuration
-         * Description: The webpack-dev-server is a little node.js Express server.
-         * The server emits information about the compilation state to the client,
-         * which reacts to those events.
-         *
-         * See: https://webpack.github.io/docs/webpack-dev-server.html
-         */
-        devServer: {
-            hot: true,
-            port: METADATA.port,
-            host: METADATA.host,
-            historyApiFallback: true,
-            watchOptions: {
-                aggregateTimeout: 300,
-                poll: 1000
-            }
-        },
+        }
 
 
     });

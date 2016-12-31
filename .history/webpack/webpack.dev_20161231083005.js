@@ -1,6 +1,7 @@
 /**
  * Development Environment
  */
+const webpack = require('webpack'); // used to merge webpack configs
 const helpers = require('./helpers');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
@@ -90,11 +91,31 @@ module.exports = function(options) {
                 }
             }),
 
+            new webpack.HotModuleReplacementPlugin()
 
 
 
         ],
 
+        /**
+         * Webpack Development Server configuration
+         * Description: The webpack-dev-server is a little node.js Express server.
+         * The server emits information about the compilation state to the client,
+         * which reacts to those events.
+         *
+         * See: https://webpack.github.io/docs/webpack-dev-server.html
+         */
+        devServer: {
+            hot: true,
+            inline: true,
+            port: 8080,
+            host: "localhost,
+            historyApiFallback: true,
+            watchOptions: {
+                aggregateTimeout: 300,
+                poll: 1000
+            }
+        },
 
         /*
          * Include polyfills or mocks for various node stuff
@@ -113,3 +134,5 @@ module.exports = function(options) {
 
     });
 }
+
+console.log("***************" + METADATA.PORT + "**************");

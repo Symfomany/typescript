@@ -17,6 +17,9 @@ const AssetsPlugin = require('assets-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const { resolve } = require('path')
+const OfflinePlugin = require('offline-plugin')
+require('offline-plugin/runtime').install();
+
 
 /*
  * Webpack Constants
@@ -24,7 +27,7 @@ const { resolve } = require('path')
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-    title: 'Test Webpackj by Boyer Julien',
+    title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass',
     baseUrl: '/',
     isDevServer: helpers.isWebpackDevServer()
 };
@@ -74,10 +77,6 @@ module.exports = env => {
 
                 },
                 {
-                    test: /\.(eot|svg|ttf|woff|woff2)$/,
-                    loader: 'file?name=public/fonts/[name].[ext]'
-                },
-                {
                     test: /\.ts$/,
                     loaders: [
                         'awesome-typescript-loader?configFileName=tsconfig.json',
@@ -90,6 +89,7 @@ module.exports = env => {
 
         plugins: [
             new ProgressBarPlugin(), // progress bar
+            new OfflinePlugin(),
 
             new CheckerPlugin(),
             new AssetsPlugin({
@@ -105,7 +105,6 @@ module.exports = env => {
                 from: './src/img',
                 to: './img'
             }]),
-            new webpack.HotModuleReplacementPlugin(),
 
             /**
              * Plugin LoaderOptionsPlugin (experimental)
@@ -152,26 +151,7 @@ module.exports = env => {
             module: false,
             clearImmediate: false,
             setImmediate: false
-        },
-
-        /**
-         * Webpack Development Server configuration
-         * Description: The webpack-dev-server is a little node.js Express server.
-         * The server emits information about the compilation state to the client,
-         * which reacts to those events.
-         *
-         * See: https://webpack.github.io/docs/webpack-dev-server.html
-         */
-        devServer: {
-            hot: true,
-            port: METADATA.port,
-            host: METADATA.host,
-            historyApiFallback: true,
-            watchOptions: {
-                aggregateTimeout: 300,
-                poll: 1000
-            }
-        },
+        }
 
 
     });

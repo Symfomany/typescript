@@ -164,6 +164,7 @@ module.exports = env => {
          */
         devServer: {
             hot: true,
+            inline: true,
             port: METADATA.port,
             host: METADATA.host,
             historyApiFallback: true,

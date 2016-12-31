@@ -1,3 +1,5 @@
+console.log("**********************************************");
+
 /**
  * @author: Boyer Julien
  * Load all environements in webpack/ directory
@@ -15,5 +17,4 @@ switch (process.env.NODE_ENV) {
     case 'development':
     default:
         module.exports = require('./webpack/webpack.dev')({ env: 'development' });
-        break;
 }

@@ -8,8 +8,7 @@ import * as $ from 'jquery';
 
 // const date = moment().format("YYYY");
 
-console.log("TS ready!!! ...");
-console.log("laaa");
+console.log("TS ready!!!! ...");
 console.log(phrase);
 // console.log(date);
 
