@@ -16,9 +16,9 @@ console.log(lib.demo.phrase);
 let d = new lib.demo.Demo('Cool :)');
 console.warn(d.out());
 
-lib.jQuery(function () {
+$(function () {
     console.log("Jquery ready!");
-    lib.jQuery('.demo').click(function () {
+    $('.demo').click(function () {
         console.log('Ok...');
     })
 })

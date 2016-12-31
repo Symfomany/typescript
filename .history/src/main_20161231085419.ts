@@ -1,8 +1,8 @@
 import * as lib from './vendor';
 
-import "./sass/main.scss";
+import "sass/main";
 
-const tab = lib.chunky(['a', 'b', 'c', 'd', 'e'], 2);
+const tab = lib.chunky.chunk(['a', 'b', 'c', 'd', 'e'], 2);
 console.log(tab);
 
 // import * as moment from "moment";
@@ -16,9 +16,9 @@ console.log(lib.demo.phrase);
 let d = new lib.demo.Demo('Cool :)');
 console.warn(d.out());
 
-lib.jQuery(function () {
+$(function () {
     console.log("Jquery ready!");
-    lib.jQuery('.demo').click(function () {
+    $('.demo').click(function () {
         console.log('Ok...');
     })
 })
