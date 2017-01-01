@@ -33,16 +33,14 @@ console.info("Documenation : https://github.com/ReactiveX/rxjs/blob/master/MIGRA
 
 const button = document.querySelector('.button');
 const label = document.querySelector('h4');
+
 const clickStream = Observable.fromEvent(button, 'click');
 
-/**
- * Documentation ici: http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-bufferWhen
- */
+
 const doubleClickStream = clickStream
-    .bufferWhen(() => clickStream.debounceTime(800))
+    .bufferWhen(() => clickStream.debounceTime(250))
     .map(arr => arr.length)
-    .filter(len => len === 2) // nb de clique égale a 2 sue la longeur du tableau des clicks
-    .map(x => console.log(x))
+    .filter(len => len === 2);
 
 
 doubleClickStream.subscribe(event => {
@@ -65,20 +63,6 @@ doubleClickStream
     .subscribe(suggestion => {
         label.textContent = '+------+';
     });
-
-
-let numbers = Observable.of(10, 20, 30);
-let letters = Observable.of('a', 'b', 'c');
-let interval = Observable.interval(1000);
-let result = numbers.concat(letters).concat(interval);
-// result.subscribe(x => console.log(x));
-
-
-// Convert jQuery's getJSON to an Observable API
-// Suppose we have jQuery.getJSON('/my/url', callback)
-let getJSONAsObservable = Observable.bindCallback(jQuery.getJSON);
-let resultTwo = getJSONAsObservable('https://jsonplaceholder.typicode.com/users');
-resultTwo.subscribe(x => console.log(x), e => console.error(e));
 
 // let a = 123;
 // let b = 10 * a;
@@ -129,7 +113,7 @@ var responseStream = requestStream
     .flatMap(requestUrl =>
         Observable.fromPromise(jQuery.getJSON(requestUrl))
     )
-    .publishReplay(1).refCount();
+    .shareReplay(1);
 
 function getRandomUser(listUsers) {
     return listUsers[Math.floor(Math.random() * listUsers.length)];
@@ -177,6 +161,89 @@ suggestion3Stream.subscribe(user => {
     renderSuggestion(user, '.suggestion3');
 });
 
+
+// let streamA = Observable.of(3, 4);
+// let streamB = streamA.map(a => 10 * a);
+// // streamA.map(a => console.log(a));
+// streamB.subscribe(b => console.log(b));
+
+// let requestStream = Observable.of('https://api.github.com/users');
+// const refreshButton = document.querySelector('.refresh');
+// const closeButton1 = document.querySelector('.close1');
+// const closeButton2 = document.querySelector('.close2');
+// const closeButton3 = document.querySelector('.close3');
+
+
+// const refreshClickStream = Observable.fromEvent(refreshButton, 'click');
+// const startupRequestStream = Observable.of('https://api.github.com/users');
+
+// const requestOnRefreshStream = refreshClickStream
+//     .map(ev => {
+//         console.log(ev);
+//         const randomOffset = Math.floor(Math.random() * 500);
+//         return 'https://api.github.com/users?since=' + randomOffset;
+//     });
+
+// let responseStream = startupRequestStream.merge(requestOnRefreshStream)
+//     .flatMap(requestUrl => {
+//         console.log('do network request...');
+//         Observable.fromPromise(jQuery.getJSON(requestUrl))
+//     });
+
+// setTimeout(() => {
+//     responseStream.subscribe(user => console.log(user))
+// }, 3000);
+
+// /**
+//  * Create Suggestion of User
+//  */
+// function createSuggestionStream(responseStream) {
+//     return responseStream.map(listUser =>
+//         listUser[Math.floor(Math.random() * listUser.length)]
+//     )
+//         .startWith(null)
+//         .merge(refreshClickStream.map(ev => null));
+// }
+
+
+
+// let suggestionStream = createSuggestionStream(responseStream);
+// let suggestionTwoStream = createSuggestionStream(responseStream);
+// let suggestionThreeStream = createSuggestionStream(responseStream);
+
+
+
+
+/**
+ * Rendering in DOM
+ */
+function renderSuggestion(suggestedUser, selector) {
+    var suggestionEl = document.querySelector(selector);
+    if (suggestedUser === null) {
+        suggestionEl.style.visibility = 'hidden';
+    } else {
+        suggestionEl.style.visibility = 'visible';
+        var usernameEl = suggestionEl.querySelector('.username');
+        usernameEl.href = suggestedUser.html_url;
+        usernameEl.textContent = suggestedUser.login;
+        var imgEl = suggestionEl.querySelector('img');
+        imgEl.src = "";
+        imgEl.src = suggestedUser.avatar_url;
+    }
+}
+
+suggestionStream.subscribe(user => {
+    console.log(user)
+    renderSuggestion(user, '.suggestion1')
+});
+suggestionTwoStream.subscribe(user => {
+    console.log(user)
+    renderSuggestion(user, '.suggestion2');
+});
+suggestionThreeStream.subscribe(user => {
+    console.log(user)
+    renderSuggestion(user, '.suggestion3');
+});
 
 
 // console.log(lib.demo.phrase);

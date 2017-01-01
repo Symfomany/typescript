@@ -33,16 +33,14 @@ console.info("Documenation : https://github.com/ReactiveX/rxjs/blob/master/MIGRA
 
 const button = document.querySelector('.button');
 const label = document.querySelector('h4');
+
 const clickStream = Observable.fromEvent(button, 'click');
 
-/**
- * Documentation ici: http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-bufferWhen
- */
+
 const doubleClickStream = clickStream
-    .bufferWhen(() => clickStream.debounceTime(800))
+    .bufferWhen(() => clickStream.debounceTime(250))
     .map(arr => arr.length)
-    .filter(len => len === 2) // nb de clique égale a 2 sue la longeur du tableau des clicks
-    .map(x => console.log(x))
+    .filter(len => len === 2);
 
 
 doubleClickStream.subscribe(event => {
@@ -66,20 +64,6 @@ doubleClickStream
         label.textContent = '+------+';
     });
 
-
-let numbers = Observable.of(10, 20, 30);
-let letters = Observable.of('a', 'b', 'c');
-let interval = Observable.interval(1000);
-let result = numbers.concat(letters).concat(interval);
-// result.subscribe(x => console.log(x));
-
-
-// Convert jQuery's getJSON to an Observable API
-// Suppose we have jQuery.getJSON('/my/url', callback)
-let getJSONAsObservable = Observable.bindCallback(jQuery.getJSON);
-let resultTwo = getJSONAsObservable('https://jsonplaceholder.typicode.com/users');
-resultTwo.subscribe(x => console.log(x), e => console.error(e));
-
 // let a = 123;
 // let b = 10 * a;
 
@@ -90,66 +74,53 @@ resultTwo.subscribe(x => console.log(x), e => console.error(e));
 
 
 
-//console.clear();
+console.clear();
 
 // var a = [3, 4];
 // var b = a.map((x) => x * 5);
 // console.table(b);
+let streamA = Observable.of(3, 4);
+let streamB = streamA.map(a => 10 * a);
+// streamA.map(a => console.log(a));
+streamB.subscribe(b => console.log(b));
 
+let requestStream = Observable.of('https://api.github.com/users');
+const refreshButton = document.querySelector('.refresh');
+const refreshClickStream = Observable.fromEvent(refreshButton, 'click');
+const startupRequestStream = Observable.of('https://api.github.com/users');
 
-
-// refreshClickStream: -------f------------->
-// requestStream:      r------r------------->
-// responseStream:     ---R-------R--------->
-// closeClickStream:   ---------------x----->
-// suggestion1Stream:  N--u---N---u---u----->
-
-var refreshButton = document.querySelector('.refresh');
-var closeButton1 = document.querySelector('.close1');
-var closeButton2 = document.querySelector('.close2');
-var closeButton3 = document.querySelector('.close3');
-
-var refreshClickStream = Observable.fromEvent(refreshButton, 'click');
-var close1Clicks = Observable.fromEvent(closeButton1, 'click');
-var close2Clicks = Observable.fromEvent(closeButton2, 'click');
-var close3Clicks = Observable.fromEvent(closeButton3, 'click');
-
-
-var startupRequestStream = Observable.of('https://api.github.com/users');
-
-var requestOnRefreshStream = refreshClickStream
+const requestOnRefreshStream = refreshClickStream
     .map(ev => {
         var randomOffset = Math.floor(Math.random() * 500);
         return 'https://api.github.com/users?since=' + randomOffset;
     });
 
-var requestStream = startupRequestStream.merge(requestOnRefreshStream);
-
-var responseStream = requestStream
+let responseStream = startupRequestStream.merge(requestOnRefreshStream)
     .flatMap(requestUrl =>
         Observable.fromPromise(jQuery.getJSON(requestUrl))
+    );
+
+/**
+ * Create Suggestion of User
+ */
+function createSuggestionStream(responseStream) {
+    return responseStream.map(listUser =>
+        listUser[Math.floor(Math.random() * listUser.length)]
     )
-    .publishReplay(1).refCount();
-
-function getRandomUser(listUsers) {
-    return listUsers[Math.floor(Math.random() * listUsers.length)];
-}
-
-function createSuggestionStream(responseStream, closeClickStream) {
-    return responseStream.map(getRandomUser)
         .startWith(null)
-        .merge(refreshClickStream.map(ev => null))
-        .merge(
-        closeClickStream.withLatestFrom(responseStream,
-            (x, R) => getRandomUser(R))
-        );
+        .merge(refreshClickStream.map(ev => null));
 }
 
-var suggestion1Stream = createSuggestionStream(responseStream, close1Clicks);
-var suggestion2Stream = createSuggestionStream(responseStream, close2Clicks);
-var suggestion3Stream = createSuggestionStream(responseStream, close3Clicks);
 
-// Rendering ---------------------------------------------------
+
+let suggestionStream = createSuggestionStream(responseStream);
+let suggestionTwoStream = createSuggestionStream(responseStream);
+let suggestionThreeStream = createSuggestionStream(responseStream);
+
+
+/**
+ * Rendering in DOM
+ */
 function renderSuggestion(suggestedUser, selector) {
     var suggestionEl = document.querySelector(selector);
     if (suggestedUser === null) {
@@ -165,18 +136,21 @@ function renderSuggestion(suggestedUser, selector) {
     }
 }
 
-suggestion1Stream.subscribe(user => {
-    renderSuggestion(user, '.suggestion1');
+
+suggestionStream.subscribe(user => {
+    console.log(user)
+    renderSuggestion(user, '.suggestion1')
 });
 
-suggestion2Stream.subscribe(user => {
+suggestionTwoStream.subscribe(user => {
+    console.log(user)
     renderSuggestion(user, '.suggestion2');
 });
 
-suggestion3Stream.subscribe(user => {
+suggestionThreeStream.subscribe(user => {
+    console.log(user)
     renderSuggestion(user, '.suggestion3');
 });
-
 
 
 // console.log(lib.demo.phrase);

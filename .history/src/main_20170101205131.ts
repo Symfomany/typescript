@@ -80,6 +80,12 @@ let getJSONAsObservable = Observable.bindCallback(jQuery.getJSON);
 let resultTwo = getJSONAsObservable('https://jsonplaceholder.typicode.com/users');
 resultTwo.subscribe(x => console.log(x), e => console.error(e));
 
+
+// Read a file from the filesystem and get the data as an Observable
+import * as fs from 'fs';
+var readFileAsObservable = Rx.Observable.bindNodeCallback(fs.readFile);
+var result = readFileAsObservable('./roadNames.txt', 'utf8');
+result.subscribe(x => console.log(x), e => console.error(e));
 // let a = 123;
 // let b = 10 * a;
 

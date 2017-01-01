@@ -80,6 +80,7 @@ let getJSONAsObservable = Observable.bindCallback(jQuery.getJSON);
 let resultTwo = getJSONAsObservable('https://jsonplaceholder.typicode.com/users');
 resultTwo.subscribe(x => console.log(x), e => console.error(e));
 
+
 // let a = 123;
 // let b = 10 * a;
 

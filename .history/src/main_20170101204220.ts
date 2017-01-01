@@ -44,7 +44,6 @@ const doubleClickStream = clickStream
     .filter(len => len === 2) // nb de clique égale a 2 sue la longeur du tableau des clicks
     .map(x => console.log(x))
 
-
 doubleClickStream.subscribe(event => {
     label.textContent = 'double click';
 });
@@ -65,20 +64,6 @@ doubleClickStream
     .subscribe(suggestion => {
         label.textContent = '+------+';
     });
-
-
-let numbers = Observable.of(10, 20, 30);
-let letters = Observable.of('a', 'b', 'c');
-let interval = Observable.interval(1000);
-let result = numbers.concat(letters).concat(interval);
-// result.subscribe(x => console.log(x));
-
-
-// Convert jQuery's getJSON to an Observable API
-// Suppose we have jQuery.getJSON('/my/url', callback)
-let getJSONAsObservable = Observable.bindCallback(jQuery.getJSON);
-let resultTwo = getJSONAsObservable('https://jsonplaceholder.typicode.com/users');
-resultTwo.subscribe(x => console.log(x), e => console.error(e));
 
 // let a = 123;
 // let b = 10 * a;
