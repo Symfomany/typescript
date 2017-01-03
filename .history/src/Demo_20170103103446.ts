@@ -3,31 +3,10 @@ import { Group } from './Group';
 
 export const phrase = "Je suis une phrase";
 
-function stability(name: String) {
-    return function (targetClass) {
 
-        let ver: number = new targetClass().version;
-        let stable: String = "Pas encore defini";
-        let obj = new targetClass();
-        if (ver > 1) {
-            stable = "Version Deja stabilisé";
-        } else if (ver > 0.5 && ver < 1) {
-            stable = "Beta";
-        } else {
-            stable = "alpha ou nighly"
-        }
-
-        return class {
-            name = obj.name;
-            ver = obj.version;
-            people = obj.people;
-        }
-    }
-}
-
-
-// @stability("Beta")
+@stability(2)
 export class Demo implements Group {
+
 
     public name: String;
     public version: Number;
@@ -53,15 +32,6 @@ export class Demo implements Group {
     out(): String {
         return `This is ${this.name} with ${this.person.email} and nb is ${this.people.length} in version ${this.version} `;
     }
-
-    add(person: Person) {
-        this.people.push(person);
-    }
-
-    invitBatch(...restPeole: Person[]) {
-        this.people.push(...restPeole);
-    }
-
 
 
 

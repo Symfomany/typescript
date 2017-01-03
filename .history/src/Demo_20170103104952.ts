@@ -18,6 +18,7 @@ function stability(name: String) {
         }
 
         return class {
+
             name = obj.name;
             ver = obj.version;
             people = obj.people;
@@ -26,7 +27,7 @@ function stability(name: String) {
 }
 
 
-// @stability("Beta")
+@stability("Beta")
 export class Demo implements Group {
 
     public name: String;
@@ -53,15 +54,6 @@ export class Demo implements Group {
     out(): String {
         return `This is ${this.name} with ${this.person.email} and nb is ${this.people.length} in version ${this.version} `;
     }
-
-    add(person: Person) {
-        this.people.push(person);
-    }
-
-    invitBatch(...restPeole: Person[]) {
-        this.people.push(...restPeole);
-    }
-
 
 
 

@@ -57,7 +57,6 @@ export class Demo implements Group {
     add(person: Person) {
         this.people.push(person);
     }
-
     invitBatch(...restPeole: Person[]) {
         this.people.push(...restPeole);
     }

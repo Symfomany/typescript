@@ -8,7 +8,7 @@ function stability(name: String) {
 
         let ver: number = new targetClass().version;
         let stable: String = "Pas encore defini";
-        let obj = new targetClass();
+
         if (ver > 1) {
             stable = "Version Deja stabilisé";
         } else if (ver > 0.5 && ver < 1) {
@@ -18,15 +18,15 @@ function stability(name: String) {
         }
 
         return class {
-            name = obj.name;
-            ver = obj.version;
-            people = obj.people;
+            name = new targetClass().name;
+            ver = new targetClass().version;
+            people = new targetClass().people;
         }
     }
 }
 
 
-// @stability("Beta")
+@stability("Beta")
 export class Demo implements Group {
 
     public name: String;
@@ -53,15 +53,6 @@ export class Demo implements Group {
     out(): String {
         return `This is ${this.name} with ${this.person.email} and nb is ${this.people.length} in version ${this.version} `;
     }
-
-    add(person: Person) {
-        this.people.push(person);
-    }
-
-    invitBatch(...restPeole: Person[]) {
-        this.people.push(...restPeole);
-    }
-
 
 
 

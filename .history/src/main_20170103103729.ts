@@ -214,7 +214,18 @@ console.log(newAgePerson);
 // Decorators of class
 
 
-
+function stability(name: String) {
+    return function (targetClass) {
+        let ver = new targetClass().version;
+        if (ver > 1) {
+            return "Version Stable";
+        } else if (ver > 0.5 && ver < 1) {
+            return "Beta";
+        } else {
+            return "alpha ou nighly"
+        }
+    }
+}
 
 
 // lib.jQuery(function () {

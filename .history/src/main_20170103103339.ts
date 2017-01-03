@@ -1,4 +1,3 @@
-import { Demo } from './Demo';
 import { Person } from './Person';
 import { jQuery, demo } from './vendor';
 
@@ -214,7 +213,17 @@ console.log(newAgePerson);
 // Decorators of class
 
 
-
+function stability(version: number) {
+    return function (stack: demo.Demo) {
+        if (stack.version > 1) {
+            return "Version Stable";
+        } else if (stack.version > 0.5 && stack.version < 1) {
+            return "Beta";
+        } else {
+            return "alpha ou nighly"
+        }
+    }
+}
 
 
 // lib.jQuery(function () {

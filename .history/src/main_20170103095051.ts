@@ -1,5 +1,3 @@
-import { Demo } from './Demo';
-import { Person } from './Person';
 import { jQuery, demo } from './vendor';
 
 // import * as lib from './vendor';
@@ -184,38 +182,8 @@ resultTwo.subscribe(x => console.log(x), e => console.error(e));
 
 // console.log(lib.demo.phrase);
 
-
-let person = {
-    name: 'Boyer',
-    email: 'julien@meetserious.com',
-    age: 28
-}
-let d = new demo.Demo('Cool :)', person);
-
+let d = new demo.Demo('Cool :)');
 console.warn(d.out());
-
-
-
-function belAge(age: number) {
-    return function (person: Person) {
-        if (age == 20) {
-            person.age = "Le plus bel age";
-            return person;
-        }
-        return person.age;
-    }
-}
-
-
-const newAgePerson = belAge(20)(person);
-console.log(newAgePerson);
-
-
-// Decorators of class
-
-
-
-
 
 // lib.jQuery(function () {
 //     console.log("Jquery ready!");

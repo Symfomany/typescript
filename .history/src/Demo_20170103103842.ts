@@ -5,29 +5,20 @@ export const phrase = "Je suis une phrase";
 
 function stability(name: String) {
     return function (targetClass) {
-
-        let ver: number = new targetClass().version;
-        let stable: String = "Pas encore defini";
-        let obj = new targetClass();
+        let ver = new targetClass().version;
         if (ver > 1) {
-            stable = "Version Deja stabilisé";
+            return "Version Deja stabilisé";
         } else if (ver > 0.5 && ver < 1) {
-            stable = "Beta";
+            return "Beta";
         } else {
-            stable = "alpha ou nighly"
-        }
-
-        return class {
-            name = obj.name;
-            ver = obj.version;
-            people = obj.people;
+            return "alpha ou nighly"
         }
     }
 }
 
-
-// @stability("Beta")
+@stability("Beta")
 export class Demo implements Group {
+
 
     public name: String;
     public version: Number;
@@ -53,15 +44,6 @@ export class Demo implements Group {
     out(): String {
         return `This is ${this.name} with ${this.person.email} and nb is ${this.people.length} in version ${this.version} `;
     }
-
-    add(person: Person) {
-        this.people.push(person);
-    }
-
-    invitBatch(...restPeole: Person[]) {
-        this.people.push(...restPeole);
-    }
-
 
 
 

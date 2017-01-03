@@ -1,4 +1,3 @@
-import { Demo } from './Demo';
 import { Person } from './Person';
 import { jQuery, demo } from './vendor';
 
@@ -207,15 +206,8 @@ function belAge(age: number) {
 }
 
 
-const newAgePerson = belAge(20)(person);
+const newAgePerson = belAge(20);
 console.log(newAgePerson);
-
-
-// Decorators of class
-
-
-
-
 
 // lib.jQuery(function () {
 //     console.log("Jquery ready!");
